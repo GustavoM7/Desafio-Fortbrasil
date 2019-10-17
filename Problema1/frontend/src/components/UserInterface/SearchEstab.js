@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 class SearchEstab extends Component {
     render(){
         return(
-            <div>
+            <div className="App">
                 <header>
-                    <h1>Buscar estabelecimentos próximos</h1>
+                    <h3>Buscar estabelecimentos próximos</h3>
                     <p>Informe abaixo o endereço</p>
                 </header>
 
@@ -14,12 +14,14 @@ class SearchEstab extends Component {
                     <form>
                         <label>Endereço:</label>
                         <input/>
+
+                        <button>BUSCAR</button>
                     </form>
                     <ul>
                         <li>###Resultados###</li>
                     </ul>
 
-                    <p><Link to="/User">Retornar</Link></p>
+                    <p><Link to="/User">retornar</Link></p>
                 </section>
             </div>
         )

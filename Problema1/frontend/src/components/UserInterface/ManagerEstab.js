@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 class ManagerEstab extends Component {
     render(){
         return(
-            <div>
+            <div className="App">
                 <header>
-                    <h1>Gerenciamento de estabelecimentos</h1>
+                    <h3>Gerenciamento de estabelecimentos</h3>
                     <p>Selecione um estabelecimento abaixo</p>
                 </header>
 
@@ -14,7 +14,7 @@ class ManagerEstab extends Component {
                     <ul>
                         <il>###Lista de estabelecimentos###</il>
                     </ul>
-                    <p><Link to="/User">Retornar</Link></p>
+                    <p><Link to="/User">retornar</Link></p>
                 </section>
             </div>
         )

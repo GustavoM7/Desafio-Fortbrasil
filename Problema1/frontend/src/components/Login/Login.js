@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 class Login extends Component {
     render(){
         return(
-            <div>
+            <div className="App">
                 <header>
-                    <h1>Bem-vindo(a) ao serviço de gerenciamento de estabelecimentos</h1>
+                    <h3>Bem-vindo(a) ao serviço de gerenciamento de estabelecimentos</h3>
                     <p>Realize sua autenticação para continuar</p>
                 </header>
 
@@ -18,7 +18,7 @@ class Login extends Component {
                         <label>Senha:</label>
                         <input/>
 
-                        <button>Logar</button>
+                        <button>ENTRAR</button>
                     </form>
 
                     <p><Link to="/register">cadastrar uma conta</Link></p>

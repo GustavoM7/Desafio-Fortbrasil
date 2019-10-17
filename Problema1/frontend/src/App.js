@@ -28,7 +28,7 @@ class App extends Component {
         <BrowserRouter>
           {
             //Botão para logout aparecerá caso houver usuário logado
-            this.state.auth ? (<button onClick={() => this.changeAuth()}>Logout</button>):null
+            this.state.auth ? (<button id="logout-button" onClick={() => this.changeAuth()}>SAIR</button>):null
           }
           <Switch>
             <Route exact path="/" render={() => this.state.auth ? <Redirect to="/User"/> : <Login/>}/>

@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 const Hall = () => {
     return(
-        <div>
+        <div className="App">
             <header>
-                <h1>Bem vindo(a)!</h1>
+                <h3>Bem vindo(a)!</h3>
             </header>
 
-            <section>
+            <section className="Hall-section">
                 <Link to="/User/NewEstab">Registrar novo estabelecimento</Link>
                 <Link to="/User/ManagerEstab">Gerenciar estabelecimentos</Link>
                 <Link to="/User/SearchEstab">Buscar estabelecimentos próximos</Link>

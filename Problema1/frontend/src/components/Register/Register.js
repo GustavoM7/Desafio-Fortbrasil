@@ -4,30 +4,28 @@ import { Link } from 'react-router-dom';
 class Register extends Component {
     render(){
         return(
-            <div>
+            <div className="App">
                 <header>
-                    <h1>Bem-vindo(a) ao serviço de gerenciamento de estabelecimentos</h1>
-                    <p>Preecha o formulário abaixo para registrar uma conta</p>
+                    <h3>Bem-vindo(a) ao serviço de gerenciamento de estabelecimentos</h3>
+                    <p>Preencha o formulário abaixo para registrar uma conta</p>
                 </header>
 
                 <section>
                     <form>
-                        <label>Email:</label>
-                        <input/>
+                        <label htmlFor="email-input">Email:</label>
+                        <input id="email-input"/>
 
-                        <label>Confirmação de email:</label>
-                        <input/>
+                        <input placeholder="confirmar email"/>
 
-                        <label>Senha:</label>
-                        <input/>
+                        <label htmlFor="senha-input">Senha:</label>
+                        <input id="senha-input"/>
 
-                        <label>Confirmação de senha:</label>
-                        <input/>
+                        <input placeholder="confirar senha" />
 
-                        <button>Cadastrar</button>
+                        <button>CADASTRAR</button>
                     </form>
 
-                    <p><Link to="/">Cancelar</Link></p>
+                    <p><Link to="/">cancelar</Link></p>
                 </section>
             </div>
         )

@@ -1,13 +1,6 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
+  background-color: #264E36;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,6 +10,103 @@
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+.App header{
+  border: none;
+  border-bottom: 1px solid white;
+  min-width: 45vw;
+  margin-bottom: 20px;
+}
+
+.App a {
+  color: white;
+  text-decoration: none;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.App a:hover{
+  color: #708090;
+  text-decoration: underline #09d3ac;
+}
+
+.App form{
+  display: flex;
+  flex: 1;
+  min-width: 50vw;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  color: #222222;
+  padding: 40px;
+}
+
+.App form label{
+  font-size: calc(1px + 2vmin);
+  margin-right: 75%;
+  text-align: left;
+}
+
+.App input{
+  width: 80%;
+  padding: 12px 20px;
+  margin: 10px 8px;
+  border: none;
+  border-bottom: 2px solid gray;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.App input:hover{
+  border-bottom: 2px solid #09d3ac;
+}
+
+.App input:focus{
+  border-bottom: 2px solid #264E36;
+}
+
+.App button {
+  background-color: #264E36;
+  width: 50%;
+  height: 40px;
+  border: none;
+  border-radius: 15px;
+  margin: 20px 0 0 0;
+  color: white;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.App button:hover{
+  background-color: #708090
+}
+
+#logout-button{
+  display: block;
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  background-color: #264E36;
+  border: none;
+  border-radius: 15px;
+  margin: 20px 0 0 0;
+  height: 40px;
+  color: white;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+#logout-button:hover{
+  background-color: #708090;
+}
+
+.Hall-section{
+  display: flex;
+  flex: 1;
+  min-width: 40vw;
+  max-height: 20vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 40px;
+  border-bottom: 1px solid white;
 }

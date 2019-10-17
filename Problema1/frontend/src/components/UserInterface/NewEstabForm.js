@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 class NewEstabForm extends Component {
     render(){
         return(
-            <div>
+            <div className="App">
                 <header>
-                    <h1>Registro de novo Estabelecimento</h1>
+                    <h3>Registro de novo Estabelecimento</h3>
                     <p>Insira os dados do novo Estabelecimento abaixo:</p>
                 </header>
 
@@ -18,10 +18,10 @@ class NewEstabForm extends Component {
                         <label>Endereço:</label>
                         <input/>
 
-                        <button>Registrar</button>
+                        <button>REGISTRAR</button>
                     </form>
 
-                    <p><Link to="/User">Retornar</Link></p>
+                    <p><Link to="/User">retornar</Link></p>
                 </section>
             </div>
         )
