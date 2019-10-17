@@ -1,5 +1,6 @@
-from app import db
+from app import db, ma
 
+#Db tables
 class User(db.Model):
     __tablename__ = "users"
 
@@ -40,3 +41,14 @@ class Estab(db.Model):
 
     def __repr__ (self):
         return "<Estab %r>" % self.phone
+
+
+#JSON Schemas with marshmallow
+class UserSchema(ma.ModelSchema):
+    class Meta:
+        model = User
+
+
+class EstabSchema(ma.ModelSchema):
+    class Meta:
+        model = Estab
