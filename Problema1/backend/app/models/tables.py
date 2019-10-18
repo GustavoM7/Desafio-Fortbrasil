@@ -10,6 +10,25 @@ class User(db.Model):
     name = db.Column(db.String)
 
 
+    @property
+    def is_authenticated(self):
+        return True
+
+    
+    @property
+    def is_active(self):
+        return True
+    
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    
+    def get_id(self):
+        return str(self.id)
+
+
     def __init__(self, name, email, password):
         self.name = name
         self.email = email

@@ -1,6 +1,8 @@
-from app import app, db
+from app import app, db, lm
 from flask import request, jsonify
+from flask_login import login_user, logout_user
 from app.models.tables import User, Estab, UserSchema, EstabSchema
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 @app.route("/")
@@ -14,11 +16,19 @@ def create_user():
     if User.query.filter_by(email == data['email']).first() is None:
         return jsonify({'error': 'conflict'}), 409
 
-    newUser = User(data['name'], data['email'], data['password'])
+    encryptPw = generate_password_hash(data['password'], method='pbkdf2:sha256', salt_length=8)
+
+    newUser = User(data['name'], data['email'], encryptPw)
     db.session.add(newUser)
     db.session.commit()
 
     return data, 201
+
+
+@lm.user_loader
+def load_user(id):
+    return User.query.filter_by(id = id).first()
+
 
 @app.route("/Users")
 def read_users():
@@ -30,6 +40,37 @@ def read_users():
         outputList.append(output)
 
     return jsonify(outputList) , 200
+
+
+@app.route("/Users/<int:id>", methods=['DELETE'])
+def delete_user(id):
+    user = User.query.filter_by(id = id).first()
+    if user is None:
+        return jsonify({'error':'not found'}), 404
+    if user.is_authenticated():
+        return 200
+    return jsonify({'error': 'denied'}), 409
+
+
+@app.route("/Users/Login", methods=['GET', 'POST'])
+def user_login():
+    data = request.get_json()
+    user = User.query.filter_by(email = data['email']).first()
+    if user:
+        if check_password_hash(user.password, data['password']):
+            login_user(user)
+            user_schema = UserSchema()
+            res = user_schema.dump(user)
+            return jsonify(res), 200
+            
+        return jsonify({'error': 'conflict'}), 409
+    return jsonify({'error':'not found'}), 404
+
+
+@app.route("/Users/Logout", methods=['GET', 'POST'])
+def logout():
+    logout_user()
+    return 200
 
 
 @app.route("/Estabs", methods=['POST'])
@@ -90,8 +131,18 @@ def delete_estab(id):
 
 '''@app.route("/Teste")
 def teste():
-    teste = User("Teste3", "teste3@teste.com", "123")
+    teste = User("Teste4", "teste4@teste.com", generate_password_hash('123', method='pbkdf2:sha256', salt_length=8))
 
     db.session.add(teste)
     db.session.commit()
-    return "OK" '''
+    return "OK"
+
+
+@app.route("/TesteSecurity")
+def testeS():
+    ut = User.query.filter_by(id = 4).first()
+    if check_password_hash(ut.password, '123'):
+        return "Funciona"
+
+    return "Não funciona"
+'''
