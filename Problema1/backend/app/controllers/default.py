@@ -43,6 +43,20 @@ def read_users():
     return jsonify(outputList) , 200
 
 
+@app.route("/Users/<int:id>", methods=['GET'])
+def read_user(id):
+    user = User.query.filter_by(id = id).all()
+    outputList = []
+    if user is None:
+        return jsonify({'error':'not found'}), 404
+
+    for u in user:
+        user_schema = UserSchema()
+        output = user_schema.dump(u)
+        outputList.append(output)
+
+    return jsonify(outputList) , 200
+
 @app.route("/Users/<int:id>", methods=['DELETE'])
 def delete_user(id):
     user = User.query.filter_by(id = id).first()
@@ -81,6 +95,17 @@ def logout():
     logout_user()
     return 200
 
+
+@app.route("/Users/Estabs/<int:id>", methods=['GET'])
+def get_user_estabs(id):
+    estb = Estab.query.filter_by(owner = id).all()
+    outputList = []
+    for e in estb:
+        estb_schema = EstabSchema()
+        output = estb_schema.dump(e)
+        outputList.append(output)
+
+    return jsonify(outputList) , 200
 
 @app.route("/Estabs", methods=['POST'])
 def create_estab():

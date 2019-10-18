@@ -110,3 +110,28 @@
   padding: 40px;
   border-bottom: 1px solid white;
 }
+
+.App-table {
+  width: 80vw;
+  text-align: left;
+}
+
+.App-table-update{
+  color: green;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.App-table-update:hover{
+  background-color: #708090
+}
+
+.App-table-delete{
+  color: red;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.App-table-delete:hover{
+  background-color: #708090
+}

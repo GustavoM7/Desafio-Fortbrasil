@@ -67,7 +67,7 @@ class App extends Component {
             <Route exact path="/Register" render={() => this.state.user ? <Redirect to="/User"/> : <Register/>}/>
             <Route exact path="/User" render={() => !this.state.user ? <Redirect to="/"/> : <Hall username={this.state.user.name} />}/>
             <Route exact path="/User/NewEstab" render={() => !this.state.user ? <Redirect to="/"/> : <NewEstabForm userid={this.state.user.id} />}/>
-            <Route exact path="/User/ManagerEstab" render={() => !this.state.user ? <Redirect to="/"/> : <ManagerEstab/>}/>
+            <Route exact path="/User/ManagerEstab" render={() => !this.state.user ? <Redirect to="/"/> : <ManagerEstab userid={this.state.user.id}/>}/>
             <Route exact path="/User/SearchEstab" render={() => !this.state.user ? <Redirect to="/"/> : <SearchEstab/>}/>
             <Route component={NotFound}/>
           </Switch>
