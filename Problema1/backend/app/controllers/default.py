@@ -68,6 +68,14 @@ def user_login():
     return jsonify({'error':'not found'}), 404
 
 
+@app.route("/Users/Login/Current", methods=['GET', 'POST'])
+def check_user_login():
+    data = request.get_json()
+    user = User.query.filter_by(email = data['email']).first()
+    if user:
+        return user.is_authenticated()
+    return 404
+
 @app.route("/Users/Logout", methods=['GET', 'POST'])
 def logout():
     logout_user()

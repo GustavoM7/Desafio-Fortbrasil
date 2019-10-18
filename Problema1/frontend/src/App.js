@@ -7,20 +7,52 @@ import ManagerEstab from './components/UserInterface/ManagerEstab';
 import NewEstabForm from './components/UserInterface/NewEstabForm';
 import SearchEstab from './components/UserInterface/SearchEstab';
 import NotFound from './components/NotFound/NotFound';
+import api from './components/API/Api';
 import './App.css';
 
 //Este componente gerenciarar as rotas da aplicação
 class App extends Component {
   
-  //auth guardará o estado da auteticação e será usado para redirecionamentos
+  //user guardará um obj de usuário após o login
   state = {
-    auth: false
+    user: null
   }
 
 
-  //Função para alternar o estado de auth
-  changeAuth = () =>{
-    this.setState({auth: this.state.auth ? false : true});
+  //função que será herdada pelo componente de login, recebe um obj de usuário logado
+  loginCallback = (user) =>{
+    this.setState({
+      user: user
+    })
+
+    //guardando usuário para verificação de login após refresh
+    localStorage.setItem('@fbgm7app/user', JSON.stringify(user))
+
+  }
+
+  logout = () =>{
+    api.get("/Users/Logout", {}).then((res) =>{
+      console.log(res);
+      localStorage.removeItem('@fbgm7app/user');
+    });
+
+    this.setState({user:null});
+  }
+
+  componentDidMount(){
+    //recuperando usuário caso tenha havido login antes de refresh
+    let user = localStorage.getItem('@fbgm7app/user');
+
+    if (user !== null){
+      api.post("/Users/Login/Current", user).then((res) =>{
+        if (res){
+            this.setState({
+              user: JSON.parse(user)
+            })
+        } else localStorage.removeItem('@fbgm7app/user');
+      })
+      
+    }
   }
 
   render(){
@@ -28,15 +60,15 @@ class App extends Component {
         <BrowserRouter>
           {
             //Botão para logout aparecerá caso houver usuário logado
-            this.state.auth ? (<button id="logout-button" onClick={() => this.changeAuth()}>SAIR</button>):null
+            this.state.user ? (<button id="logout-button" onClick={() => this.logout()}>SAIR</button>):null
           }
           <Switch>
-            <Route exact path="/" render={() => this.state.auth ? <Redirect to="/User"/> : <Login/>}/>
-            <Route exact path="/Register" render={() => this.state.auth ? <Redirect to="/User"/> : <Register/>}/>
-            <Route exact path="/User" render={() => !this.state.auth ? <Redirect to="/"/> : <Hall/>}/>
-            <Route exact path="/User/NewEstab" render={() => !this.state.auth ? <Redirect to="/"/> : <NewEstabForm/>}/>
-            <Route exact path="/User/ManagerEstab" render={() => !this.state.auth ? <Redirect to="/"/> : <ManagerEstab/>}/>
-            <Route exact path="/User/SearchEstab" render={() => !this.state.auth ? <Redirect to="/"/> : <SearchEstab/>}/>
+            <Route exact path="/" render={() => this.state.user ? <Redirect to="/User"/> : <Login callback={this.loginCallback} />}/>
+            <Route exact path="/Register" render={() => this.state.user ? <Redirect to="/User"/> : <Register/>}/>
+            <Route exact path="/User" render={() => !this.state.user ? <Redirect to="/"/> : <Hall username={this.state.user.name} />}/>
+            <Route exact path="/User/NewEstab" render={() => !this.state.user ? <Redirect to="/"/> : <NewEstabForm/>}/>
+            <Route exact path="/User/ManagerEstab" render={() => !this.state.user ? <Redirect to="/"/> : <ManagerEstab/>}/>
+            <Route exact path="/User/SearchEstab" render={() => !this.state.user ? <Redirect to="/"/> : <SearchEstab/>}/>
             <Route component={NotFound}/>
           </Switch>
         </BrowserRouter>
