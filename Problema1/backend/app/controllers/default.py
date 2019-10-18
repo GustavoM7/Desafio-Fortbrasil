@@ -1,4 +1,4 @@
-from app import app, db, lm
+from app import app, db, lm, cors
 from flask import request, jsonify
 from flask_login import login_user, logout_user
 from app.models.tables import User, Estab, UserSchema, EstabSchema
@@ -13,16 +13,17 @@ def index():
 @app.route("/Users", methods=['POST'])
 def create_user():
     data = request.get_json()
-    if User.query.filter_by(email == data['email']).first() is None:
-        return jsonify({'error': 'conflict'}), 409
 
-    encryptPw = generate_password_hash(data['password'], method='pbkdf2:sha256', salt_length=8)
+    if User.query.filter_by(email = data['email']).first() is None:
+        encryptPw = generate_password_hash(data['password'], method='pbkdf2:sha256', salt_length=8)
 
-    newUser = User(data['name'], data['email'], encryptPw)
-    db.session.add(newUser)
-    db.session.commit()
+        newUser = User(data['name'], data['email'], encryptPw)
+        db.session.add(newUser)
+        db.session.commit()
 
-    return data, 201
+        return data, 201
+        
+    return jsonify({'error': 'conflict'}), 409
 
 
 @lm.user_loader

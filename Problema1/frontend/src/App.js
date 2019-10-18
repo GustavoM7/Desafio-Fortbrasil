@@ -14,7 +14,7 @@ class App extends Component {
   
   //auth guardará o estado da auteticação e será usado para redirecionamentos
   state = {
-    auth: true
+    auth: false
   }
 
 
