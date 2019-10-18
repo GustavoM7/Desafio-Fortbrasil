@@ -86,13 +86,12 @@ def logout():
 def create_estab():
     data = request.get_json()
     if Estab.query.filter_by(phone = data['phone']).first() is None:
-        return jsonify({'error': 'conflict'}), 409
-
-    newEstab = Estab(data['phone'], data['name'], data['adress'], data['owner'])
-    db.session.add(newEstab)
-    db.session.commit()
-
-    return data, 201
+        newEstab = Estab(data['phone'], data['name'], data['adress'], int(data['owner']))
+        db.session.add(newEstab)
+        db.session.commit()
+        return data, 200
+    
+    return jsonify({'error': 'conflict'}), 409
 
 
 @app.route("/Estabs")
@@ -100,8 +99,8 @@ def read_estabs():
     estb = Estab.query.order_by(Estab.name).all()
     outputList = []
     for e in estb:
-        user_schema = UserSchema()
-        output = user_schema.dump(e)
+        estb_schema = EstabSchema()
+        output = estb_schema.dump(e)
         outputList.append(output)
 
     return jsonify(outputList) , 200
